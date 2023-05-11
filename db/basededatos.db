@@ -1,0 +1,9 @@
+CREATE TABLE alumno (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(45) DEFAULT NULL, 
+    apellido VARCHAR(45) DEFAULT NULL,
+    fecha_nacimiento DATE DEFAULT NULL,
+    carrera VARCHAR(45) DEFAULT NULL,
+    promedio DECIMAL(10, 2) DEFAULT NULL,
+    PRIMARY KEY (id)
+);

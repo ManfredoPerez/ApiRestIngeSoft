@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mostrar datos de API REST en una tabla</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+ 
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <br> <br>
+  <div class="w3-container">
+    <h1>Listado de Estudiantes</h1>
+    <br>
+        <button class="w3-btn w3-teal w3 round" onclick="traerEstudiantes()"> Refrescar Tabla</button>
+        <br>
+        <br>
+      <table class="w3-table w33-striped" border="1px" id="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha Na</th>
+            <th>Carrera</th>
+            <th>promedio</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+  </div>
+
+  <script>
+    function traerEstudiantes() {
+      // Hacer una solicitud al API REST
+      axios.get('http://localhost:3000/api/alumnos/')
+        .then(function (response) {
+          // Obtener los datos de la respuesta
+          const data = response.data;
+
+          // Obtener la tabla
+          const table = document.getElementById('data-table');
+
+          // Crear las filas y las celdas de la tabla
+          data.forEach(function (item) {
+            const row = document.createElement('tr');
+            const idCell = document.createElement('td');
+            const nameCell = document.createElement('td');
+            const apellidoCell = document.createElement('td');
+            const fechaCell = document.createElement('td');
+            const carreraCell = document.createElement('td');
+            const promedioCell = document.createElement('td');
+
+            // Asignar los valores a las celdas
+            idCell.textContent = item.id;
+            nameCell.textContent = item.nombre;
+            apellidoCell.textContent = item.apellido;
+            fechaCell.textContent = item.fecha_nacimiento;
+            carreraCell.textContent = item.carrera;
+            promedioCell.textContent = item.promedio;
+
+
+            // Agregar las celdas a la fila
+            row.appendChild(idCell);
+            row.appendChild(nameCell);
+            row.appendChild(apellidoCell);
+            row.appendChild(fechaCell);
+            row.appendChild(carreraCell);
+            row.appendChild(promedioCell);
+
+
+            // Agregar la fila a la tabla
+            table.querySelector('tbody').appendChild(row);
+          });
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+  </script>
+</body>
+</html>
